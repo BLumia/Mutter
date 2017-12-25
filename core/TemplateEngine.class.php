@@ -13,6 +13,10 @@
 			$this->map[$key] = $value;
 		}
 		
+		public function setArray($arr) {
+			$this->map = array_merge($arr, $this->map);
+		}
+		
 		public function render() {
 			if (!file_exists($this->file)) exit("(ToT)");
 			$output = file_get_contents($this->file);
