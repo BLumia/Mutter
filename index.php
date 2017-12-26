@@ -6,6 +6,7 @@
 	require_once('./core/RouteStrategy.class.php');
 	require_once('./core/Config.class.php');
 	require_once('./core/Infrastructure.interface.php');
+	require_once('./core/SubFolderFriendly.interface.php');
 	
 	require_once('./core/PostList.class.php');
 	require_once('./core/PageGenerator.class.php');
@@ -25,7 +26,7 @@
 	
 	$router = new Routing();
 	$router->add("blog", new PostList());
-	$router->add("about", new PageGenerator());
+	$router->add("about", new PageGenerator($config));
 	$router->add("static", new StaticFiles($config));
 	$router->setDefault("blog");
 	$router->doWork();

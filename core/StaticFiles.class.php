@@ -1,7 +1,7 @@
 <?php
 	if (!defined("MUTTER")) exit("(OoO)");
 	
-	class StaticFiles implements Infra {
+	class StaticFiles implements Infra, SubFolderFriendly {
 		
 		protected $shiftedArray;
 		protected $dataFilePath;
