@@ -32,7 +32,7 @@
 			$theKey = null;
 			if (count($route) == 0 && $this->defaultKey != null) $theKey = $this->defaultKey;
 			else {
-				if (isset($route[0])) $theKey = $route[0];
+				if (isset($this->regList[$route[0]])) $theKey = $route[0];
 				else if ($this->notfoundKey != null) $theKey = $this->notfoundKey;
 				else exit("(qaq)");
 			}
