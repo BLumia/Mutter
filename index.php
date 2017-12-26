@@ -5,8 +5,8 @@
 	require_once('./core/TemplateEngine.class.php');
 	require_once('./core/RouteStrategy.class.php');
 	require_once('./core/Config.class.php');
+	require_once('./core/SubFolderFriendly.class.php');
 	require_once('./core/Infrastructure.interface.php');
-	require_once('./core/SubFolderFriendly.interface.php');
 	
 	require_once('./core/PostList.class.php');
 	require_once('./core/PageGenerator.class.php');

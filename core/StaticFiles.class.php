@@ -1,24 +1,14 @@
 <?php
 	if (!defined("MUTTER")) exit("(OoO)");
 	
-	class StaticFiles implements Infra, SubFolderFriendly {
+	class StaticFiles extends SubFolderFriendly implements Infra {
 		
 		protected $shiftedArray;
-		protected $dataFilePath;
-		protected $subFolderName = "static";
 		
 		public function __construct($config) {
 			if ($config == null || !is_a($config, "Config")) exit("(O_O)");
 			$this->dataFilePath = $config->dataFolderPath;
-		}
-		
-		protected function getDataFilePath() {
-			return "{$this->dataFilePath}/{$this->subFolderName}/";
-		}
-		
-		public function setSubFolderName($newSubFolderName) {
-			if (is_string($newSubFolderName)) $subFolderName = $newSubFolderName;
-			else exit("(*.*)");
+			$this->subFolderName = "static";
 		}
 		
 		public function routeArray($routeArray) {
