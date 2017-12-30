@@ -1,6 +1,11 @@
 <?php
 	if (!defined("MUTTER")) exit("(OoO)");
 	
+	/*
+	Extend this class if one Infra (Module) use a sub folder.
+	We recommend you leave a default value for $this->subFolderName in __construct function, 
+	so it can also works well as a sub infra.
+	*/
 	class SubFolderFriendly {
 		
 		protected $dataFilePath;

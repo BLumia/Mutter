@@ -8,9 +8,9 @@
 	require_once('./core/SubFolderFriendly.class.php');
 	require_once('./core/Infrastructure.interface.php');
 	
-	require_once('./core/PostList.class.php');
-	require_once('./core/PageGenerator.class.php');
-	require_once('./core/StaticFiles.class.php');
+	require_once('./infra/PostList.class.php');
+	require_once('./infra/PageGenerator.class.php');
+	require_once('./infra/StaticFiles.class.php');
 	
 	function GIVEMETHEFUCKINGUTF8($text) {
 		return iconv(mb_detect_encoding($text, mb_detect_order(), true), "UTF-8", $text);

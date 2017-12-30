@@ -1,6 +1,9 @@
 <?php
 	if (!defined("MUTTER")) exit("(OoO)");
 	
+	/*
+	Config for Infra (Module), the Mutter core doesn't need a config.
+	*/
 	class Config {
 		public $dataFolderPath;
 		public $markdownExts = array("md", "markdown", "bmd");
