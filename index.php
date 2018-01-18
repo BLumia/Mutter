@@ -8,6 +8,7 @@
 	require_once('./core/SubFolderFriendly.class.php');
 	require_once('./core/Infrastructure.interface.php');
 	
+	//require_once('./infra/HelloWorld.class.php');
 	require_once('./infra/PostList.class.php');
 	require_once('./infra/PageGenerator.class.php');
 	require_once('./infra/StaticFiles.class.php');
@@ -25,6 +26,7 @@
 	$config = new Config();
 	
 	$router = new Routing();
+	//$router->add("hello", new HelloWorld($config));
 	$router->add("blog", new PostList());
 	$router->add("about", new PageGenerator($config));
 	$router->add("static", new StaticFiles($config));

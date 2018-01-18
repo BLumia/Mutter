@@ -29,7 +29,7 @@
 			if (!file_exists($this->file)) exit("(ToT)");
 			$output = file_get_contents($this->file);
 			foreach ($this->map as $key => $value) {
-				$valueTagFormat = '{{'.$key.'}}';
+				$valueTagFormat = '{{$'.$key.'}}';
 				$output = str_replace($valueTagFormat, $value, $output);
 			}
 			foreach ($this->subInfra as $key => $subInfra) {

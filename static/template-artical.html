@@ -11,60 +11,136 @@ html {
 	min-height: 100%;
 	background-color: #2C1B56;
 }
-.flex-container {
+body {
 	display: flex;
 	flex-direction: column;
 	align-items: center;
+	color: #B9AED2;
 }
-.flex-container > h1 {
-	color: #FFFFFF;
-	font-weight: lighter;
-	text-align: left!important;
+.flex-container {
+	display: flex;
+	flex-direction: column;
 	width: 75%;
-	margin: 10px;
-	text-align: center;
+}
+h1,h2 {
 	line-height: 75px;
 	font-size: 30px;
-}
-.flex-container > p {
-	color: #B9AED2;
-	font-weight: lighter;
-	text-align: left!important;
-	width: 75%;
 	margin: 10px;
-	text-align: center;
+	color: #FFFFFF;
+	font-weight: lighter;
+}
+h2 {
+	line-height: 50px;
+    font-size: 24px;
+}
+p {
+	margin: 10px;
 	line-height: 34px;
     margin-bottom: 24px;
     font-size: 18px;
+	color: #B9AED2;
+}
+a {
+	color: #FFF;
+    border-bottom: 1px solid rgba(255,255,255,0.19);
+    transition: border .1s ease-out;
+	padding-bottom: 1px;
+	text-decoration: none;
+}
+a:hover {
+	border-bottom-color: #fff;
+    color: #FFF;
+    text-decoration: none;
+}
+sup, sub {
+  vertical-align: baseline;
+  position: relative;
+  top: -0.4em;
+}
+sub { 
+  top: 0.4em; 
+}
+pre {
+	background: rgba(29,17,64,0.85);
+	border: 0;
+	border-left: 4px solid #7371B7;
+	border-radius: 0;
+	color: #6C7887;
+	overflow-x: auto;
+}
+pre code {
+	overflow-wrap: normal;
+	white-space: pre;
+	color: #B4AEC5;
+}
+code {
+    background: #1F133E;
+    border: 0;
+    border-radius: 0;
+    color: #EBE7F5;
+	padding: 2px 4px;
+    font-size: 90%;
+}
+ul, ol {
+	line-height: 34px;
+	margin-bottom: 24px;
+	list-style: none;
+	font-size: 18px;
+	padding: 0;
+	margin: 10px;
+}
+ul > li:before, ol:not(.cite) > li:before {
+    content: '';
+    display: inline-block;
+    width: 10px;
+    height: 10px;
+    border-radius: 10px;
+    border: 2px solid #5E9CFF;
+    margin-right: 15px;
+}
+li {
+	line-height: 30px;
+	display: list-item;
+}
+ol.cite {
+	list-style: decimal;
+	margin: 10px;
+}
+.cite > li {
+	font-size: 14px;
+}
+.flex-container > h1,h2 {
+	text-align: left!important;
+	text-align: center;
+}
+.flex-container > p {
+	text-align: left!important;
+	font-weight: lighter;
+}
+.flex-container > pre {
+	text-align: left!important;
+	margin: 10px;
+	padding: 40px;
+	font-weight: lighter;
 }
 .flex-container > div {
 	background-color: #f1f1f1;
-	width: 75%;
 	margin: 10px;
 	text-align: center;
 	line-height: 75px;
 	font-size: 30px;
 }
 .flex-container > hr {
-	border-top: 1px solid #472F82;
 	border: 0;
+	border-top: 1px solid #472F82;
 	margin-top: 20px;
     margin-bottom: 20px;
-	width: 75%;
 }
 </style>
 </head>
 <body>
 <div class="flex-container">
-	<h1>Test Header</h1>
-	<div>1</div>
-	<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Isto modo ne improbos quidem, si essent boni viri. Sin laboramus, quis est, qui alienae modum statuat industriae? Satis est ad hoc responsum. Videmus igitur ut conquiescere ne infantes quidem possint.</p>
-	<p>Eadem nunc mea adversum te oratio est. Itaque in rebus minime obscuris non multus est apud eos disserendi labor. Duo Reges: constructio interrete. Quae diligentissime contra Aristonem dicuntur a Chryippo. Videamus igitur sententias eorum, tum ad verba redeamus. Quid est igitur, inquit, quod requiras?</p>
-	<div>2</div>
-	<p>八百标兵奔北坡，炮兵并排北边跑，炮兵怕把标兵碰，标兵怕碰炮兵炮。</p>
-	<div>3</div>  
-	<hr>
-	<p>Should fix the &lt;hr&gt; problem.</p>
+	{{$test}}
 </div>
 </body>
 </html>
