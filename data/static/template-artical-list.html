@@ -22,7 +22,7 @@ body {
 	flex-direction: column;
 	width: 75%;
 }
-h1,h2 {
+h1,h2,h3 {
 	line-height: 75px;
 	font-size: 30px;
 	margin: 10px;
@@ -32,6 +32,14 @@ h1,h2 {
 h2 {
 	line-height: 50px;
     font-size: 24px;
+}
+h3 {
+	line-height: 46px;
+    font-size: 20px;
+}
+h1 > small, h2 > small, h3 > small {
+	padding-left: 6px;
+	color: #B9AED2;
 }
 p {
 	margin: 10px;
@@ -53,12 +61,12 @@ a:hover {
     text-decoration: none;
 }
 sup, sub {
-  vertical-align: baseline;
-  position: relative;
-  top: -0.4em;
+	vertical-align: baseline;
+	position: relative;
+	top: -0.4em;
 }
 sub { 
-  top: 0.4em; 
+	top: 0.4em; 
 }
 pre {
 	background: rgba(29,17,64,0.85);
@@ -140,7 +148,8 @@ ol.cite {
 </head>
 <body>
 <div class="flex-container">
-	{{$test}}
+	<h1>Posts</h1>
+	{{$posts}}
 </div>
 </body>
 </html>

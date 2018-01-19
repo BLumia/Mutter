@@ -7,28 +7,25 @@
 	require_once('./core/Config.class.php');
 	require_once('./core/SubFolderFriendly.class.php');
 	require_once('./core/Infrastructure.interface.php');
+	require_once('./core/Utils.Function.php');
+	
+	require_once('./vendor/Parsedown.php');
+	require_once('./vendor/ParsedownExtra.php');
 	
 	//require_once('./infra/HelloWorld.class.php');
 	require_once('./infra/PostList.class.php');
 	require_once('./infra/PageGenerator.class.php');
+	require_once('./infra/StaticPageGenerator.class.php');
 	require_once('./infra/StaticFiles.class.php');
-	
-	function GIVEMETHEFUCKINGUTF8($text) {
-		return iconv(mb_detect_encoding($text, mb_detect_order(), true), "UTF-8", $text);
-	}
-	
-	function getFileExtension($fileName) {
-		$explodeArr = explode('.',$fileName);
-		$explodeArr = array_reverse($explodeArr);  
-		return strtolower($explodeArr[0]);
-	}
 	
 	$config = new Config();
 	
 	$router = new Routing();
 	//$router->add("hello", new HelloWorld($config));
-	$router->add("blog", new PostList());
-	$router->add("about", new PageGenerator($config));
+	$router->add("posts", new PostList($config));
+	$router->add("post", new PageGenerator($config));
+	$router->add("about", new StaticPageGenerator($config));
+	$router->add("Mutter", new StaticPageGenerator($config));
 	$router->add("static", new StaticFiles($config));
-	$router->setDefault("blog");
+	$router->setDefault("posts");
 	$router->doWork();
