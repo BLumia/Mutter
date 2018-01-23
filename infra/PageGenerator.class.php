@@ -8,7 +8,7 @@
 		public function __construct($config) {
 			if ($config == null || !is_a($config, "Config")) exit("(O_O)");
 			$this->dataFilePath = $config->dataFolderPath;
-			$this->setSubFolderName("page");
+			$this->setSubFolderName("posts");
 			
 			$this->pageTemplate = new Template($this->getDataFilePath("static")."template-artical.html");
 		}
@@ -17,8 +17,14 @@
 			$content = "";
 			if (count($routeArray) <= 1) $content = "<h1>Oops.</h1><p>Post not found.</p>";
 			else {
-				$Parsedown = new Parsedown();
-				$content = $Parsedown->text('# Title!');//$routeArray[1];
+				$fileName = urldecode($routeArray[1]).".md";
+				$filePath = $this->getDataFilePath().$fileName;
+				if (file_exists($filePath)) {
+					$Parsedown = new Parsedown();
+					$content = $Parsedown->text(file_get_contents($filePath, null, null, 0, 20000));//$routeArray[1];
+				} else {
+					$content = "<h1>Oops.</h1><p>Post not found.</p>";
+				}
 			}
 			$this->pageTemplate->set("content", $content);
 		}
