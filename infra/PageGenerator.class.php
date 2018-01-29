@@ -21,7 +21,7 @@
 				$filePath = $this->getDataFilePath().$fileName;
 				if (file_exists($filePath)) {
 					$Parsedown = new Parsedown();
-					$content = $Parsedown->text(file_get_contents($filePath, null, null, 0, 20000));//$routeArray[1];
+					$content = $Parsedown->text(file_get_contents($filePath, null, null, 0, 20000));
 				} else {
 					$content = "<h1>Oops.</h1><p>Post not found.</p>";
 				}

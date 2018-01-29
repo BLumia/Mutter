@@ -68,6 +68,12 @@ sup, sub {
 sub { 
 	top: 0.4em; 
 }
+hr {
+	border: 0;
+	border-top: 1px solid #472F82;
+	margin-top: 20px;
+    margin-bottom: 20px;
+}
 pre {
 	background: rgba(29,17,64,0.85);
 	border: 0;
@@ -97,25 +103,30 @@ ul, ol {
 	padding: 0;
 	margin: 10px;
 }
-ul > li:before, ol:not(.cite) > li:before {
-    content: '';
-    display: inline-block;
-    width: 10px;
-    height: 10px;
-    border-radius: 10px;
-    border: 2px solid #5E9CFF;
-    margin-right: 15px;
+ul > li:before, div:not(.footnotes) > ol > li:before {
+	content: '';
+	display: inline-block;
+	width: 10px;
+	height: 10px;
+	border-radius: 10px;
+	border: 2px solid #5E9CFF;
+	margin-right: 15px;
 }
 li {
 	line-height: 30px;
 	display: list-item;
 }
-ol.cite {
+.footnotes > ol {
 	list-style: decimal;
 	margin: 10px;
+	margin-left: 25px;
 }
-.cite > li {
+.footnotes > ol > li {
 	font-size: 14px;
+}
+li > p {
+	font-size: 14px;
+	display: inline;
 }
 .flex-container > h1,h2 {
 	text-align: left!important;
@@ -131,18 +142,12 @@ ol.cite {
 	padding: 40px;
 	font-weight: lighter;
 }
-.flex-container > div {
+.flex-container > div:not(.footnotes) {
 	background-color: #f1f1f1;
 	margin: 10px;
 	text-align: center;
 	line-height: 75px;
 	font-size: 30px;
-}
-.flex-container > hr {
-	border: 0;
-	border-top: 1px solid #472F82;
-	margin-top: 20px;
-    margin-bottom: 20px;
 }
 </style>
 </head>

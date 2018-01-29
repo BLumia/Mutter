@@ -14,8 +14,19 @@
 		}
 		
 		public function routeArray($routeArray) {
-			$markdownFilePath = $this->getDataFilePath().$routeArray[0].".md";
-			$this->pageTemplate->set("content", "<h1>Test Header</h1><p>Test Paragraph.</p>");
+			$content = "";
+			if (count($routeArray) < 1) $content = "<h1>Oops.</h1><p>Post not found.</p>";
+			else {
+				$fileName = urldecode($routeArray[0]).".md";
+				$filePath = $this->getDataFilePath().$fileName;
+				if (file_exists($filePath)) {
+					$ParsedownExtra = new ParsedownExtra();
+					$content = $ParsedownExtra->text(file_get_contents($filePath, null, null, 0, 20000));
+				} else {
+					$content = "<h1>Oops.</h1><p>Post not found.</p>";
+				}
+			}
+			$this->pageTemplate->set("content", $content);
 		}
 		
 		public function renderPage() {
