@@ -14,6 +14,17 @@
 		return strtolower($explodeArr[0]);
 	}
 	
+	function tryYAMLFrontMatter(&$content, $removeFrontMatter = false) {
+	/*
+		Try parse YAML Front-Matter from content
+		More about front-matter, please refer to: https://hexo.io/docs/front-matter.html
+		@param $content Content which may include YAML front matter
+		@param $removeFrontMatter If there is YAML front matter, remove it from $content ?
+	*/
+		// TODO: do parse here.
+		return false;
+	}
+	
 	function fire($status, $message, $result = null) {
 	/*
 		Return json payload or HTTP status code other than 200
