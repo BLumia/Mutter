@@ -21,8 +21,13 @@
 		public function routeArray($routeArray) {}
 		
 		public function renderPage() {
-			echo "Hello World!<br/>";
+			/*
+			if you don't use any Infra as a subInfra, you can just use `echo` in `renderPage()`
+			But if you do use any subInfra, use return to return the content you've constructed.
+			Check out the TemplateEngine source code to see why.
+			*/ 
 			//echo $this->getDataFilePath(); // Uncomment this and play with it!
+			return "Hello World!<br/>";
 		}
 	}
 ?>

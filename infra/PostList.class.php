@@ -17,6 +17,7 @@
 			$this->allowedExts = $config->markdownExts;
 			
 			$this->pageTemplate = new Template($this->getDataFilePath("static")."template-artical-list.html");
+			$this->pageTemplate->setInfra("HeaderComponent", new HeaderComponent($config), null);
 		}
 		
 		public function routeArray($routeArray) {
@@ -57,7 +58,7 @@
 		}
 		
 		public function renderPage() {
-			echo $this->pageTemplate->render();
+			return $this->pageTemplate->render();
 		}
 	}
 ?>

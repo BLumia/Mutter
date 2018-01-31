@@ -20,7 +20,7 @@
 		}
 		
 		public function setInfra($key, $value, $arg) {
-			if (!is_a($module, "Infra")) exit("(OwO)");
+			if (!is_a($value, "Infra")) exit("(OwO)");
 			$this->subInfra[$key] = $value;
 			$this->subInfraRouteArray[$key] = $arg;
 		}
@@ -35,7 +35,7 @@
 			foreach ($this->subInfra as $key => $subInfra) {
 				$valueTagFormat = '{{@'.$key.'}}';
 				$subInfra->routeArray($this->subInfraRouteArray[$key]);
-				$output = str_replace($valueTagFormat, $subInfra->render(), $output);
+				$output = str_replace($valueTagFormat, $subInfra->renderPage(), $output);
 			}
 			return $output;
 		}

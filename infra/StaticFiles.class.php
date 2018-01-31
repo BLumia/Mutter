@@ -22,7 +22,13 @@
 		
 		public function renderPage() {
 			$fileLocation = $this->getDataFilePath().implode("/", $this->shiftedArray);
-			if (is_file($fileLocation)) exit(file_get_contents($fileLocation));
+			if (is_file($fileLocation)) {
+				$ext = getFileExtension($fileLocation);
+				switch ($ext) {
+					case "css": @header('Content-Type: text/css'); break;
+				}
+				return file_get_contents($fileLocation);
+			}
 			else exit("(qwq)");
 		}
 	}

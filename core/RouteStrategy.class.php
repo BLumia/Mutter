@@ -37,7 +37,7 @@
 				else exit("(qaq)");
 			}
 			$this->modules[$theKey]->routeArray($route);
-			$this->modules[$theKey]->renderPage();
+			echo $this->modules[$theKey]->renderPage();
 		}
 	}
 ?>
