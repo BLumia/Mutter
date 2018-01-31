@@ -21,8 +21,27 @@
 		@param $content Content which may include YAML front matter
 		@param $removeFrontMatter If there is YAML front matter, remove it from $content ?
 	*/
-		// TODO: do parse here.
-		return false;
+		$_content = substr($content, 0, 300);
+		$canFound = strpos($_content, '---');
+		if ($canFound === false) return false;
+		
+		$resultArr = array();
+		
+		$_content = substr($_content, 0, $canFound);
+		$rawFrontMatter = explode("\n", $_content);
+		foreach($rawFrontMatter as $aLine) {
+			$aLine = trim($aLine);
+			if (empty($aLine)) continue;
+			$findColon = strpos($aLine, ':');
+			if ($findColon === false) return false;
+			$key = trim(substr($aLine, 0, $findColon)); 
+			$value = trim(substr($aLine, $findColon + 1)); 
+			if (empty($key)) return false;
+			$resultArr[$key] = $value;
+		}
+		
+		if ($removeFrontMatter) $content = substr($content, $canFound + 4);
+		return $resultArr;
 	}
 	
 	function fire($status, $message, $result = null) {

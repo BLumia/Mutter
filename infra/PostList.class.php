@@ -35,20 +35,22 @@
 				$utf8FileName = GIVEMETHEFUCKINGUTF8($oneFileName);
 				$fileExt = getFileExtension($utf8FileName);
 				$curFilePath = "{$dataFileDir}/{$oneFileName}";
+				$tmpContent = file_get_contents($curFilePath, null, null, 0, 300);
+				$tryFrontMatter = tryYAMLFrontMatter($tmpContent);
 				if (is_dir($curFilePath)) continue;
 				if (in_array($fileExt,$this->allowedExts)) {
 					array_push($postList, 
 						array(
-							"title"=>$utf8FileName,
+							"title"=>isset($tryFrontMatter["title"]) ? $tryFrontMatter["title"] : $utf8FileName,
 							"url"=>"?/post/".rawurlencode(basename($utf8FileName, ".{$fileExt}")),
-							"modifiedTime"=>filemtime($curFilePath)
+							"modifiedTime"=>isset($tryFrontMatter["updated"]) ? $tryFrontMatter["updated"] : date("Y/m/d H:i:s", filemtime($curFilePath)) 
 						)
 					);
 				}
 			}
 			
 			foreach ($postList as $aPost) {
-				$postsDOM .= $this->postLinkGenerator($aPost['title'], date("Y/m/d H:i:s", $aPost['modifiedTime']), $aPost['url']);
+				$postsDOM .= $this->postLinkGenerator($aPost['title'], $aPost['modifiedTime'], $aPost['url']);
 			}
 			
 			$this->pageTemplate->set("posts", $postsDOM);
