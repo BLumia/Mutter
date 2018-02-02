@@ -16,8 +16,9 @@
 	require_once('./infra/PostList.class.php');
 	require_once('./infra/PageGenerator.class.php');
 	require_once('./infra/StaticPageGenerator.class.php');
-	require_once('./infra/HeaderComponent.class.php');
 	require_once('./infra/StaticFiles.class.php');
+	require_once('./infra/HeaderComponent.class.php');
+	require_once('./infra/FooterComponent.class.php');
 	
 	$config = new Config();
 	

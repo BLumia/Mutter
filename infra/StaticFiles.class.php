@@ -26,6 +26,7 @@
 				$ext = getFileExtension($fileLocation);
 				switch ($ext) {
 					case "css": @header('Content-Type: text/css'); break;
+					case "ttf": @header('Content-Type: application/font-ttf'); break;
 				}
 				return file_get_contents($fileLocation);
 			}

@@ -129,6 +129,12 @@ li > p {
 header > nav {
 	width: 100%;
 }
+footer {
+	display: flex;
+	flex-direction: row;
+	margin-bottom: 2.61em;
+	justify-content: space-between;
+}
 nav > ul {
 	display: flex;
 	flex-direction: row;

@@ -1,7 +1,7 @@
 <?php
 	if (!defined("MUTTER")) exit("(OoO)");
 	
-	class HeaderComponent extends SubFolderFriendly implements Infra {
+	class FooterComponent extends SubFolderFriendly implements Infra {
 		
 		protected $pageTemplate;
 		
@@ -10,9 +10,7 @@
 			$this->dataFilePath = $config->dataFolderPath;
 			$this->subFolderName = "static";
 			
-			$this->pageTemplate = new Template($this->getDataFilePath("static")."template-header.html");
-			$this->pageTemplate->set("title", $config->siteHeaderText);
-			$this->pageTemplate->set("subtitle", $config->siteSubHeaderText);
+			$this->pageTemplate = new Template($this->getDataFilePath("static")."template-footer.html");
 		}
 		
 		public function routeArray($routeArray) {}

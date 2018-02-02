@@ -12,6 +12,7 @@
 			
 			$this->pageTemplate = new Template($this->getDataFilePath("static")."template-artical.html");
 			$this->pageTemplate->setInfra("HeaderComponent", new HeaderComponent($config), null);
+			$this->pageTemplate->setInfra("FooterComponent", new FooterComponent($config), null);
 		}
 		
 		public function routeArray($routeArray) {
