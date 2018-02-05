@@ -25,6 +25,11 @@
 			$this->subInfraRouteArray[$key] = $arg;
 		}
 		
+		public function &getInfra($key) {
+			if (!isset($this->subInfra[$key])) exit("(*v*)");
+			return $this->subInfra[$key];
+		}
+		
 		public function render() {
 			if (!file_exists($this->file)) exit("(ToT)");
 			$output = file_get_contents($this->file);

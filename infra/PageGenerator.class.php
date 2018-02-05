@@ -33,7 +33,11 @@
 			}
 			
 			//var_dump($this->frontMatter);
-			$this->pageTemplate->set("title", isset($this->frontMatter["title"]) ? $this->frontMatter["title"] : "Post");
+			$postTitle = isset($this->frontMatter["title"]) ? $this->frontMatter["title"] : "Blog :: Post";
+			//$postDate = isset($this->frontMatter["date"]) ? "Post Date: ".$this->frontMatter["date"] : "Sample Text";
+			$this->pageTemplate->getInfra("HeaderComponent")->pageTemplate->set("title", $postTitle);
+			//$this->pageTemplate->getInfra("HeaderComponent")->pageTemplate->set("subtitle", $postDate);
+			$this->pageTemplate->set("title", $postTitle);
 			$this->pageTemplate->set("content", $content);
 		}
 		

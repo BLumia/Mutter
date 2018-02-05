@@ -4,6 +4,7 @@
 	class StaticPageGenerator extends SubFolderFriendly implements Infra {
 		
 		protected $pageTemplate;
+		protected $frontMatter;
 		
 		public function __construct($config) {
 			if ($config == null || !is_a($config, "Config")) exit("(O_O)");
@@ -22,13 +23,19 @@
 				$fileName = urldecode($routeArray[0]).".md";
 				$filePath = $this->getDataFilePath().$fileName;
 				if (file_exists($filePath)) {
+					$content = file_get_contents($filePath, null, null, 0, 20000);
+					$this->frontMatter = tryYAMLFrontMatter($content, true);
 					$ParsedownExtra = new ParsedownExtra();
-					$content = $ParsedownExtra->text(file_get_contents($filePath, null, null, 0, 20000));
+					$content = $ParsedownExtra->text($content);
 				} else {
 					$content = "<h1>Oops.</h1><p>Post not found.</p>";
 				}
 			}
+			
+			$pageTitle = isset($this->frontMatter["title"]) ? $this->frontMatter["title"] : "Page";
+			if ($pageTitle != "Page") $this->pageTemplate->getInfra("HeaderComponent")->pageTemplate->set("title", $pageTitle);
 			$this->pageTemplate->set("content", $content);
+			$this->pageTemplate->set("title", $pageTitle);
 		}
 		
 		public function renderPage() {

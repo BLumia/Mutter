@@ -3,7 +3,7 @@
 	
 	class HeaderComponent extends SubFolderFriendly implements Infra {
 		
-		protected $pageTemplate;
+		public $pageTemplate; // change from protected to allow parent Infra use `$pageTemplate->set()`
 		
 		public function __construct($config) {
 			if ($config == null || !is_a($config, "Config")) exit("(O_O)");
