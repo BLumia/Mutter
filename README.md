@@ -12,5 +12,7 @@ Mutter is designed to be portable and hackable. We highly recommend you dig into
 
 Source of **Mutter** doesn't contains a bunch of complex logic, so take it easy and just read and modify it to fit your use case.
 
-<a name="fn1">1</a>: Although I haven't test on other enviroments, it will always works under PHP 5.4+ .
+------
+
+<a name="fn1">1</a>: Although I haven't test on other enviroments, it will always works under PHP 5.4+ .  
 <a name="fn2">2</a>: Actually **Mutter** is using [Parsedown Extra](https://github.com/erusev/parsedown-extra) which is an extension of [Parsedown](/) that adds support for [Markdown Extra](https://michelf.ca/projects/php-markdown/extra/).
