@@ -24,8 +24,8 @@
 	
 	$router = new Routing();
 	//$router->add("hello", new HelloWorld($config));
-	$router->add("posts", new PostList($config));
-	$router->add("post", new PageGenerator($config));
+	$router->add("posts", new PostList($config, "post"));
+	$router->add("post", new PageGenerator($config, "post"));
 	$router->add("about", new StaticPageGenerator($config));
 	$router->add("Mutter", new StaticPageGenerator($config));
 	$router->add("static", new StaticFiles($config));

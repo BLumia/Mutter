@@ -6,10 +6,11 @@
 		protected $pageTemplate;
 		protected $frontMatter;
 		
-		public function __construct($config) {
+		public function __construct($config, $subFolderName) {
 			if ($config == null || !is_a($config, "Config")) exit("(O_O)");
+			if ($subFolderName == null || !is_string($subFolderName)) exit("(O_O)");
 			$this->dataFilePath = $config->dataFolderPath;
-			$this->setSubFolderName("posts");
+			$this->setSubFolderName($subFolderName);
 			
 			$this->pageTemplate = new Template($this->getDataFilePath("static")."template-artical.html");
 			$this->pageTemplate->setInfra("HeaderComponent", new HeaderComponent($config), null);
@@ -32,7 +33,6 @@
 				}
 			}
 			
-			//var_dump($this->frontMatter);
 			$postTitle = isset($this->frontMatter["title"]) ? $this->frontMatter["title"] : "Blog :: Post";
 			//$postDate = isset($this->frontMatter["date"]) ? "Post Date: ".$this->frontMatter["date"] : "Sample Text";
 			$this->pageTemplate->getInfra("HeaderComponent")->pageTemplate->set("title", $postTitle);

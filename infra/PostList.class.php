@@ -5,16 +5,19 @@
 		
 		protected $pageTemplate;
 		protected $allowedExts;
+		protected $postInfraName; // For subfolder name, and also for generating links.
 		
 		private function postLinkGenerator($title, $postTime, $url) {
 			return "<h3><a href='{$url}'>{$title}</a><small>{$postTime}</small></h3>";
 		}
 		
-		public function __construct($config) {
+		public function __construct($config, $postInfraName) {
 			if ($config == null || !is_a($config, "Config")) exit("(O_O)");
+			if ($postInfraName == null || !is_string($postInfraName)) exit("(O_O)");
 			$this->dataFilePath = $config->dataFolderPath;
-			$this->setSubFolderName("posts");
+			$this->setSubFolderName($postInfraName); // Subfolder name and link string is the same.
 			$this->allowedExts = $config->markdownExts;
+			$this->postInfraName = $postInfraName; // Yeah same `$postInfraName`, it sucks? try hack this part, it's simple.
 			
 			$this->pageTemplate = new Template($this->getDataFilePath("static")."template-artical-list.html");
 			$this->pageTemplate->setInfra("HeaderComponent", new HeaderComponent($config), null);
@@ -41,17 +44,17 @@
 				$tryFrontMatter = tryYAMLFrontMatter($tmpContent);
 				if (is_dir($curFilePath)) continue;
 				if (in_array($fileExt,$this->allowedExts)) {
-					array_push($postList, 
-						array(
-							"title"=>isset($tryFrontMatter["title"]) ? $tryFrontMatter["title"] : $utf8FileName,
-							"url"=>"?/post/".rawurlencode(basename($utf8FileName, ".{$fileExt}")),
-							"modifiedTime"=>isset($tryFrontMatter["updated"]) ? $tryFrontMatter["updated"] : date("Y/m/d H:i:s", filemtime($curFilePath)) 
-						)
+					$postTimestamp = isset($tryFrontMatter["date"]) ? strtotime($tryFrontMatter["date"]) : filectime($curFilePath);
+					$postList[$postTimestamp] = array(
+						"title"=>isset($tryFrontMatter["title"]) ? $tryFrontMatter["title"] : $utf8FileName,
+						"url"=>"?/{$this->postInfraName}/".rawurlencode(basename($utf8FileName, ".{$fileExt}")),
+						"modifiedTime"=>isset($tryFrontMatter["updated"]) ? $tryFrontMatter["updated"] : date("Y/m/d H:i:s", filemtime($curFilePath)) 
 					);
 				}
 			}
 			
-			foreach ($postList as $aPost) {
+			krsort($postList); // array key is post data timestamp, do sort: order by post data, desc.
+			foreach ($postList as $idx => $aPost) {
 				$postsDOM .= $this->postLinkGenerator($aPost['title'], $aPost['modifiedTime'], $aPost['url']);
 			}
 			
