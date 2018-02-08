@@ -17,7 +17,7 @@ body {
 	flex-direction: column;
 	width: 75%;
 }
-h1,h2,h3 {
+h1,h2,h3,h4 {
 	line-height: 75px;
 	font-size: 30px;
 	margin: 10px;
@@ -26,34 +26,41 @@ h1,h2,h3 {
 }
 h2 {
 	line-height: 50px;
-    font-size: 24px;
+	font-size: 24px;
 }
 h3 {
 	line-height: 46px;
-    font-size: 20px;
+	font-size: 20px;
 }
-h1 > small, h2 > small, h3 > small {
+h4 {
+	line-height: 40px;
+	font-size: 20px;
+}
+h2:not(.sub-title), h3, h4, h5, h6 {
+	border-bottom: #472F82 1px solid;
+}
+h1 > small, h2 > small, h3 > small, h4 > small {
 	padding-left: 6px;
 	color: #B9AED2;
 }
 p {
 	margin: 10px;
 	line-height: 34px;
-    margin-bottom: 24px;
-    font-size: 18px;
+	margin-bottom: 20px;
+	font-size: 18px;
 	color: #B9AED2;
 }
 a {
 	color: #FFF;
-    border-bottom: 1px solid rgba(255,255,255,0.19);
-    transition: border .1s ease-out;
+	border-bottom: 1px solid rgba(255,255,255,0.19);
+	transition: border .1s ease-out;
 	padding-bottom: 1px;
 	text-decoration: none;
 }
 a:hover {
 	border-bottom-color: #fff;
-    color: #FFF;
-    text-decoration: none;
+	color: #FFF;
+	text-decoration: none;
 }
 a.nobb {
 	border-bottom: none;
@@ -70,7 +77,7 @@ hr {
 	border: 0;
 	border-top: 1px solid #472F82;
 	margin-top: 20px;
-    margin-bottom: 20px;
+	margin-bottom: 20px;
 }
 pre {
 	background: rgba(29,17,64,0.85);
@@ -86,12 +93,12 @@ pre code {
 	color: #B4AEC5;
 }
 code {
-    background: #1F133E;
-    border: 0;
-    border-radius: 0;
-    color: #EBE7F5;
+	background: #1F133E;
+	border: 0;
+	border-radius: 0;
+	color: #EBE7F5;
 	padding: 2px 4px;
-    font-size: 90%;
+	font-size: 90%;
 }
 ul, ol {
 	line-height: 34px;
@@ -156,14 +163,14 @@ header > h1 {
 	margin: 0 10px;
 	padding: 0;
 	font-size: 3.125rem;
-    font-weight: normal;
+	font-weight: normal;
 }
 header > h2 {
 	line-height: 1.6em;
 	margin: 0 10px;
 	padding: 0;
 	font-size: 0.9375rem;
-    font-weight: normal;
+	font-weight: normal;
 }
 .flex-container > h1,h2 {
 	text-align: left!important;
