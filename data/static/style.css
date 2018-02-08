@@ -39,6 +39,9 @@ h4 {
 h2:not(.sub-title), h3, h4, h5, h6 {
 	border-bottom: #472F82 1px solid;
 }
+.posts > h3 {
+	border-bottom: none;
+}
 h1 > small, h2 > small, h3 > small, h4 > small {
 	padding-left: 6px;
 	color: #B9AED2;
