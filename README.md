@@ -12,6 +12,10 @@ Mutter is designed to be portable and hackable. We highly recommend you dig into
 
 Source of **Mutter** doesn't contains a bunch of complex logic, so take it easy and just read and modify it to fit your use case.
 
+## License
+
+**Mutter** licensed under MIT License.
+
 ------
 
 <a name="fn1">1</a>: Although I haven't test on other enviroments, it will always works under PHP 5.4+ .  
