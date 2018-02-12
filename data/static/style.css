@@ -120,6 +120,18 @@ div > ul > li:before, div:not(.footnotes) > ol > li:before {
 	border: 2px solid #5E9CFF;
 	margin-right: 15px;
 }
+li > ul {
+	margin: 0 30px;
+}
+li > ul > li:before, li > ol > li:before {
+	content: '';
+	display: inline-block;
+	width: 10px;
+	height: 10px;
+	border-radius: 10px;
+	border: 2px solid #c0a5e8;
+	margin-right: 15px;
+}
 li {
 	line-height: 30px;
 	display: list-item;
