@@ -1,6 +1,6 @@
 # About Mutter
 
-**Mutter** is a lightweigth scaffold for blogging and creating web pages. It's free and open source, and it works on any hosts which provides a PHP enviroment<sup>[1](#fn1)</sup> like LAMP, WAMP, LNMP, etc.
+**Mutter** is a lightweight scaffold for blogging and creating web pages. It's free and open source, and it works on any hosts which provides a PHP enviroment<sup>[1](#fn1)</sup> like LAMP, WAMP, LNMP, etc.
 
 When using **Mutter**, you'll got Markdown<sup>[2](#fn2)</sup> support out-of-the-box.
 
