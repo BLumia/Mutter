@@ -12,6 +12,10 @@ Mutter is designed to be portable and hackable. We highly recommend you dig into
 
 Source of **Mutter** doesn't contains a bunch of complex logic, so take it easy and just read and modify it to fit your use case.
 
+## Dependents
+
+If you are willing to use **Mutter** as a lightweight scaffold system, there are no extra requirement for your developmemt enviroment. But for the current default status of **Mutter**, it's a blogging system and we are using some commonly used modules, they are [DOM](https://secure.php.net/manual/en/book.dom.php) (for ParsedownExtra) and [mbstring](https://secure.php.net/manual/en/book.mbstring.php) (for UTF-8 support). Check out the links for details.
+
 ## License
 
 **Mutter** licensed under MIT License.
