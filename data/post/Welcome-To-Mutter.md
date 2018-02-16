@@ -9,7 +9,7 @@ updated: 2018/1/30 17:41:16
 
 Mutter is a simple and stupid blogging system.
 
-Mutter is a lightweigth scaffold for creating web pages.
+Mutter is a lightweight scaffold for creating web pages.
 
 Mutter is an open source project under [MIT](https://github.com/BLumia/Mutter/blob/master/LICENSE) license.
 
