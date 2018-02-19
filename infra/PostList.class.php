@@ -1,6 +1,16 @@
 <?php
 	if (!defined("MUTTER")) exit("(OoO)");
 	
+	/*
+	This is the Infra module we are using to generate post list.
+	We use file timestamp and front-matter (if exist) to sort posts.
+	
+	Currently we parse these variables from front-matter:
+	 - `title` for post title, will use the file name if no front-matter provided.
+	 - `date` for post created date, will use `filectime` if no front-matter provided.
+	 - `updated` for last updated time, will use `filemtime` if no front-matter prpvided.
+	tryYAMLFrontMatter will parse the YAML format front-matter if exist. Checkout `Utils.Function.php` for more details.
+	*/
 	class PostList extends SubFolderFriendly implements Infra {
 		
 		protected $pageTemplate;
@@ -9,6 +19,10 @@
 		
 		private function postLinkGenerator($title, $postTime, $url) {
 			return "<h3><a href='{$url}'>{$title}</a><small>{$postTime}</small></h3>";
+		}
+		
+		private static function postdataCompare($a, $b) {
+			return $b["__postTimestamp"] - $a["__postTimestamp"];
 		}
 		
 		public function __construct($config, $postInfraName) {
@@ -45,17 +59,19 @@
 				if (is_dir($curFilePath)) continue;
 				if (in_array($fileExt,$this->allowedExts)) {
 					$postTimestamp = isset($tryFrontMatter["date"]) ? strtotime($tryFrontMatter["date"]) : filectime($curFilePath);
-					$postList[$postTimestamp] = array(
+					array_push($postList, array(
 						"title"=>isset($tryFrontMatter["title"]) ? $tryFrontMatter["title"] : $utf8FileName,
 						"url"=>"?/{$this->postInfraName}/".rawurlencode(basename($utf8FileName, ".{$fileExt}")),
-						"modifiedTime"=>isset($tryFrontMatter["updated"]) ? $tryFrontMatter["updated"] : date("Y/m/d H:i:s", filemtime($curFilePath)) 
-					);
+						"modifiedTime"=>isset($tryFrontMatter["updated"]) ? $tryFrontMatter["updated"] : date("Y/m/d H:i:s", filemtime($curFilePath)),
+						"createdTime"=>date("Y/m/d H:i:s", $postTimestamp),
+						"__postTimestamp"=>$postTimestamp // used by compare function
+					));
 				}
 			}
 			
-			krsort($postList); // array key is post data timestamp, do sort: order by post data, desc.
+			usort($postList, array('PostList','postdataCompare'));
 			foreach ($postList as $idx => $aPost) {
-				$postsDOM .= $this->postLinkGenerator($aPost['title'], $aPost['modifiedTime'], $aPost['url']);
+				$postsDOM .= $this->postLinkGenerator($aPost['title'], $aPost['createdTime'], $aPost['url']);
 			}
 			
 			$this->pageTemplate->set("posts", $postsDOM);
