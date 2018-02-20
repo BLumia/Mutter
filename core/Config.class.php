@@ -9,6 +9,7 @@
 		public $markdownExts = array("md", "markdown", "bmd");
 		public $siteHeaderText = "The Big Site Title";
 		public $siteSubHeaderText = "Sub title should be long.";
+		public $timezoneText = "Etc/GMT-8";
 		
 		public function __construct() {
 			if (defined("MUTTER_PATH")) $this->dataFolderPath = MUTTER_PATH."/data/";

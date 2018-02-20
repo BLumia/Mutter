@@ -16,37 +16,19 @@
 		protected $pageTemplate;
 		protected $allowedExts;
 		protected $postInfraName; // For subfolder name, and also for generating links.
+		protected $useCache;
 		
 		private function postLinkGenerator($title, $postTime, $url) {
 			return "<h3><a href='{$url}'>{$title}</a><small>{$postTime}</small></h3>";
 		}
 		
-		private static function postdataCompare($a, $b) {
-			return $b["__postTimestamp"] - $a["__postTimestamp"];
-		}
-		
-		public function __construct($config, $postInfraName) {
-			if ($config == null || !is_a($config, "Config")) exit("(O_O)");
-			if ($postInfraName == null || !is_string($postInfraName)) exit("(O_O)");
-			$this->dataFilePath = $config->dataFolderPath;
-			$this->setSubFolderName($postInfraName); // Subfolder name and link string is the same.
-			$this->allowedExts = $config->markdownExts;
-			$this->postInfraName = $postInfraName; // Yeah same `$postInfraName`, it sucks? try hack this part, it's simple.
-			
-			$this->pageTemplate = new Template($this->getDataFilePath("static")."template-artical-list.html");
-			$this->pageTemplate->setInfra("HeaderComponent", new HeaderComponent($config), null);
-			$this->pageTemplate->setInfra("FooterComponent", new FooterComponent($config), null);
-		}
-		
-		public function routeArray($routeArray) {
-			// When we need a pager, we need access page number from url, or says, from $routeArray.
-			// But we didn't need one, for now.
-			
-			// Get post list and generate DOM here.
-			$postsDOM = "";
-			$dataFileDir = $this->getDataFilePath();
+		/*
+		Since we parse the data from the file system and we also try parse a front-matter,
+		this might be slow. Better idea is cache the result to somewhere like memcached, redis,
+		or just simply use `serialize()` to store the return value of this function and save it to a file.
+		*/
+		private function generatePostListArray($dataFileDir) {
 			$postList = array();
-			date_default_timezone_set("Etc/GMT-8");
 			
 			$fileList = scandir($dataFileDir);
 			foreach($fileList as $oneFileName) {
@@ -68,8 +50,42 @@
 					));
 				}
 			}
-			
 			usort($postList, array('PostList','postdataCompare'));
+			
+			return $postList;
+		}
+		
+		/*
+		Sort by post timestamp.
+		*/
+		private static function postdataCompare($a, $b) {
+			return $b["__postTimestamp"] - $a["__postTimestamp"];
+		}
+		
+		public function __construct($config, $postInfraName) {
+			if ($config == null || !is_a($config, "Config")) exit("(O_O)");
+			if ($postInfraName == null || !is_string($postInfraName)) exit("(O_O)");
+			$this->dataFilePath = $config->dataFolderPath;
+			$this->setSubFolderName($postInfraName); // Subfolder name and link string is the same.
+			$this->allowedExts = $config->markdownExts;
+			$this->postInfraName = $postInfraName; // Yeah same `$postInfraName`, it sucks? try hack this part, it's simple.
+			$this->useCache = false;
+			
+			date_default_timezone_set($config->timezoneText); // In case we will use `date()`
+			
+			$this->pageTemplate = new Template($this->getDataFilePath("static")."template-artical-list.html");
+			$this->pageTemplate->setInfra("HeaderComponent", new HeaderComponent($config), null);
+			$this->pageTemplate->setInfra("FooterComponent", new FooterComponent($config), null);
+		}
+		
+		public function routeArray($routeArray) {
+			// When we need a pager, we need access page number from url, or says, from $routeArray.
+			// But we didn't need one, for now.
+			
+			// Get post list and generate DOM here.
+			$postsDOM = "";
+			$dataFileDir = $this->getDataFilePath();
+			$postList = $this->generatePostListArray($dataFileDir);
 			foreach ($postList as $idx => $aPost) {
 				$postsDOM .= $this->postLinkGenerator($aPost['title'], $aPost['createdTime'], $aPost['url']);
 			}
