@@ -16,7 +16,7 @@
 		protected $pageTemplate;
 		protected $allowedExts;
 		protected $postInfraName; // For subfolder name, and also for generating links.
-		protected $useCache;
+		protected $useCache; // Don't change it to true here, see `__construct()`.
 		
 		private function postLinkGenerator($title, $postTime, $url) {
 			return "<h3><a href='{$url}'>{$title}</a><small>{$postTime}</small></h3>";
@@ -69,7 +69,7 @@
 			$this->setSubFolderName($postInfraName); // Subfolder name and link string is the same.
 			$this->allowedExts = $config->markdownExts;
 			$this->postInfraName = $postInfraName; // Yeah same `$postInfraName`, it sucks? try hack this part, it's simple.
-			$this->useCache = false;
+			$this->useCache = false; // Use cache?
 			
 			date_default_timezone_set($config->timezoneText); // In case we will use `date()`
 			
@@ -85,7 +85,38 @@
 			// Get post list and generate DOM here.
 			$postsDOM = "";
 			$dataFileDir = $this->getDataFilePath();
-			$postList = $this->generatePostListArray($dataFileDir);
+			$cacheFileDir = $this->getDataFilePath("cache");
+			$cacheFileStr = $cacheFileDir."PostList.pkl";
+			$shouldGenerate = true; // if should construct $postList from our post list folder, then true.
+			$shouldSerialize = false; // if should serialize $postList to our cache file, then true.
+			
+			$postList = null;
+			if ($this->useCache) {
+				if (is_dir($cacheFileDir) && is_file($cacheFileStr) && is_readable($cacheFileStr)) {
+					if (filemtime($cacheFileStr) > filemtime($dataFileDir)) { // is our cached post list old?
+						$postList = unserialize(file_get_contents($cacheFileStr));
+						$shouldGenerate = false;
+					} else {
+						// echo filemtime($cacheFileStr)." ".filemtime($dataFileDir);
+						$shouldGenerate = true;
+						$shouldSerialize = true;
+					}
+				} else {
+					$shouldGenerate = true;
+					$shouldSerialize = true;
+				}
+			}
+			if ($shouldGenerate) {
+				$postList = $this->generatePostListArray($dataFileDir);
+			}
+			if ($shouldSerialize) {
+				$result = true;
+				if (!file_exists($cacheFileDir)) $result = mkdir($cacheFileDir);
+				if ($result != false) $result = file_put_contents($cacheFileStr, serialize($postList), LOCK_EX);
+				if ($result === false) $postsDOM.="<p>Problem serialize PostList to file, consider disable using cache or adjust permission of the file system.</p>";
+			}
+			
+			
 			foreach ($postList as $idx => $aPost) {
 				$postsDOM .= $this->postLinkGenerator($aPost['title'], $aPost['createdTime'], $aPost['url']);
 			}
