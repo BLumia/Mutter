@@ -8,9 +8,7 @@
 	require_once('./core/SubFolderFriendly.class.php');
 	require_once('./core/Infrastructure.interface.php');
 	require_once('./core/Utils.Function.php');
-	
-	require_once('./vendor/Parsedown.php');
-	require_once('./vendor/ParsedownExtra.php');
+	require_once('./core/MutterParsedown.class.php');
 	
 	//require_once('./infra/HelloWorld.class.php');
 	require_once('./infra/PostList.class.php');

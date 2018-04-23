@@ -25,8 +25,8 @@
 				if (file_exists($filePath)) {
 					$content = file_get_contents($filePath, null, null, 0, 20000);
 					$this->frontMatter = tryYAMLFrontMatter($content, true);
-					$ParsedownExtra = new ParsedownExtra();
-					$content = $ParsedownExtra->text($content);
+					$MutterParsedown = new MutterParsedown();
+					$content = $MutterParsedown->text($content);
 				} else {
 					$content = "<h1>Oops.</h1><p>Post not found.</p>";
 				}
